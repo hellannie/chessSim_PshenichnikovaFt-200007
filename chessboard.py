@@ -1,10 +1,5 @@
 import msvcrt as m
 import sys
-import logging
-#создание лога
-logging.basicConfig(filename="log.txt",level=logging.INFO)
-logging.info("")
-logging.info("Программа запущена")
 #массив для координат полей и строковое значение для названия фигуры
 main_fields = [[0,0],[0,0]]
 figure = None
@@ -16,26 +11,22 @@ def readCoordinates(chess_xy):
             chess_xy[0][0],chess_xy[0][1] = map(int, input("Координаты первого поля: ").split())
         except Exception:
             print("Координаты не являются целыми числами")
-            logging.error("Координаты не являются целыми числами")
             check = 0
         if (1<=chess_xy[0][0]<=8) and (1<=chess_xy[0][1]<=8):
             check = 1
         else:
             print("Значения координат должны находиться в диапазоне от 1 до 8")
-            logging.warning("Значения координат должны находиться в диапазоне от 1 до 8")
     check = 0
     while check == 0:
         try:
             chess_xy[1][0],chess_xy[1][1] = map(int, input("Координаты второго поля: ").split())
         except Exception:
             print("Координаты не являются целыми числами")
-            logging.error("Координаты не являются целыми числами")
             check = 0
         if (1<=chess_xy[1][0]<=8) and (1<=chess_xy[1][1]<=8):
             check = 1
         else:
             print("Значения координат должны находиться в диапазоне от 1 до 8")
-            logging.warning("Значения координат должны находиться в диапазоне от 1 до 8")
     return chess_xy
 #функция для ввода обозначения фигуры
 def readFigure(fig):
@@ -68,25 +59,21 @@ def KnightMove(a):
         if a[0][0]+moves[i][0] == a[1][0] and a[0][1]+moves[i][1] == a[1][1]:
             q = ""
     print("Конь с поля ({0},{1}) {2} угрожает полю ({3},{4})".format(a[0][0],a[0][1],q, a[1][0],a[1][1]))
-    logging.info("Конь с поля ({0},{1}) {2} угрожает полю ({3},{4})".format(a[0][0],a[0][1],q, a[1][0],a[1][1]))
 def BishopMove(a):
     q = "не"
     if diagonalCheck(a):
         q = ""
     print("Слон на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
-    logging.info("Слон на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
 def RookMove(a):
     q = "не"
     if (a[0][0] == a[1][0]) or (a[0][1] == a[1][1]):
         q = ""
     print("Ладья на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
-    logging.info("Ладья на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
 def QueenMove(a):
     q = "не"
     if (diagonalCheck(a) or (a[0][1] == a[1][1]) or (a[0][0] == a[1][0])):
         q = ""
     print("Ферзь на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
-    logging.info("Ферзь на поле ({0},{1}) {4} угрожает полю ({2},{3})".format(a[0][0],a[0][1],a[1][0],a[1][1],q))
 # Функции проверки того, сможет ли фигура попасть на второе поле максимум в два хода
 # для ладьи, ферзя и слона соответственно
 def Rook2Move(a):
@@ -96,7 +83,6 @@ def Rook2Move(a):
         q = "не"
         f = "Ладья может совершить ход на поле ({0},{1}), оттуда на первое поле".format(a[0][0],a[1][1])
     print("Ладья со второго поля " + q + " может попасть на первое. "+f)
-    logging.info("Ладья со второго поля " + q + " может попасть на первое. "+f)
 def Queen2Move(a):
     q = ""
     f = ""
@@ -104,7 +90,6 @@ def Queen2Move(a):
         q = "не"
         f = "Ферзь может совершить ход на поле ({0},{1}), оттуда на первое поле".format(a[0][0],a[1][1])
     print("Ферзь со второго поля " + q + " может попасть на первое. " + f)
-    logging.info("Ферзь со второго поля " + q + " может попасть на первое. " + f)
 def Bishop2Move(a):
     q = ""
     if diagonalCheck(a) == False:
@@ -150,18 +135,15 @@ def Bishop2Move(a):
     else:
         q = "может попасть за один ход"
     print("Слон с первого на второе поле "+q)
-    logging.info("Слон с первого на второе поле "+q)
+
 #основная часть программы начинается здесь
 readCoordinates(main_fields)
 print("Были введены поля с координатами ({0},{1}) и ({2},{3})".format(main_fields[0][0],main_fields[0][1],main_fields[1][0],main_fields[1][1]))
-logging.info("Были введены поля с координатами ({0},{1}) и ({2},{3})".format(main_fields[0][0],main_fields[0][1],main_fields[1][0],main_fields[1][1]))
 print("\n Ответ на первый вопрос")
 print("Поля ({0},{1}) и ({2},{3}) – {4}".format(main_fields[0][0],main_fields[0][1],main_fields[1][0],main_fields[1][1],colorCheck(main_fields)))
-logging.info("Поля ({0},{1}) и ({2},{3}) – {4}".format(main_fields[0][0],main_fields[0][1],main_fields[1][0],main_fields[1][1],colorCheck(main_fields)))
 while figure == None:
     figure = readFigure(figure)
 print("На поле с координатами ({0},{1}) стоит {2}".format(main_fields[0][0],main_fields[0][1],figure))
-logging.info("На поле с координатами ({0},{1}) стоит {2}".format(main_fields[0][0],main_fields[0][1],figure))
 print("\n Ответ на второй вопрос")
 if figure == "конь":
     KnightMove(main_fields)
@@ -175,7 +157,6 @@ figure = None
 while figure == None:
     figure = readFigure(figure)
 print("На поле с координатами ({0},{1}) стоит {2}".format(main_fields[0][0],main_fields[0][1],figure))
-logging.info("На поле с координатами ({0},{1}) стоит {2}".format(main_fields[0][0],main_fields[0][1],figure))
 print("\n Ответ на третий вопрос")
 if figure == "слон":
     Bishop2Move(main_fields)
@@ -185,8 +166,6 @@ elif figure == "ферзь":
     Queen2Move(main_fields)
 elif figure == "конь":
     print("Невозможно рассчитать траекторию движения для коня")
-    logging.error("Функция Knight2Move не существует")
 #задержка экрана для того, чтобы пользователь посмотрел информацию
-logging.info("Работа программы завершена")
 m.getch()
 sys.exit()
