@@ -13,4 +13,4 @@ chessSim
 ### обработка исключений
 ![image](https://user-images.githubusercontent.com/73584580/144756810-0f663972-5f09-4a32-be34-2617a8412adb.png)
 ## Как пользоваться программой
-Скачать папку chessboard, распаковать архив, запустить файл "chessboard.exe"
+Скачать файл "chessboard.exe", запустить
